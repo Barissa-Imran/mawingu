@@ -62,6 +62,9 @@ module.exports = {
         black: {
           default: "#000",
         },
+        red: {
+          default: "#FF0000",
+        },
       },
       fontFamily: {
         segoe: [

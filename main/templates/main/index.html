@@ -1,190 +1,60 @@
-{% load static tailwind_tags %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Mawingu</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" href="{% static 'img/clouds-fill.png' %}" type="image/x-icon">
-    {% tailwind_css %}
-  </head>
-
-  <body class="bg-blue-light font-serif leading-normal tracking-normal">
-    <!-- Navbar area -->
-    <nav class="flex items-center justify-between flex-wrap p-6 shadow-md">
-      <div class="flex items-center flex-shrink-0 text-blue-dark mr-6">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="35"
-          height="35"
-          fill="currentColor"
-          class="bi bi-clouds-fill color-blue-dark"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M11.473 9a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 14h8.5a2.5 2.5 0 1 0-.027-5z"
-          />
-          <path
-            d="M14.544 9.772a3.506 3.506 0 0 0-2.225-1.676 5.502 5.502 0 0 0-6.337-4.002 4.002 4.002 0 0 1 7.392.91 2.5 2.5 0 0 1 1.17 4.769z"
-          />
-        </svg>
-        <span class="font-bold text-xl tracking-tight text-green-dark"
-          >MAWINGU</span
-        >
+{% extends 'main/base.html' %} {% block content %}
+<!-- content section -->
+<div class="flex text-blue-dark font-semibold p-6 mx-10 text-lg justify-center">
+  <form method="post" class="flex">
+    {% csrf_token %}
+    <div>
+      <div>
+        <input
+          type="text"
+          name="city"
+          id="city"
+          class="form-control border-0 rounded-lg"
+          placeholder="Search city"
+          method="GET"
+        />
       </div>
-      <div class="block lg:hidden">
+    </div>
+    <div class="control">
         <button
-          class="
-            flex
-            items-center
-            px-3
-            py-2
-            border
-            rounded
-            text-green-dark
-            border-green-dark
-            hover:text-blue-dark hover:border-blue-dark
-          "
-          onclick="menu()"
+          class="bg-blue-dark rounded-lg text-white-default mx-1 p-2 hover:bg-green-dark"
+          type="submit"
         >
           <svg
-            class="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search m-1"
+            viewBox="0 0 16 16"
           >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
           </svg>
         </button>
       </div>
-      <div
-        id="mobile"
-        class="
-          w-full
-          block
-          flex-grow
-          lg:flex lg:items-center lg:w-auto lg:visible
-          hidden
-        "
-      >
-        <div
-          class="font-semibold lg:flex-grow transition duration-500 ease-in-out"
-        >
-          <a
-            href="#contact"
-            class="
-              block
-              mt-4
-              lg:inline-block lg:mt-0
-              text-blue-dark
-              hover:text-green-dark
-              mr-4
-            "
-            >contact</a
-          >
-          <a
-            href="#about"
-            class="
-              block
-              mt-4
-              lg:inline-block lg:mt-0
-              text-blue-dark
-              hover:text-green-dark
-              mr-4
-            "
-            >about</a
-          >
-          <a
-            href="#docs"
-            class="
-              block
-              mt-4
-              lg:inline-block lg:mt-0
-              text-blue-dark
-              hover:text-green-dark
-              mr-4
-            "
-            >docs</a
-          >
-        </div>
-      </div>
-    </nav>
-    <div
-      class="flex text-blue-dark items-center font-semibold p-6 mx-10 text-lg"
-    >
-      <span>Get the latest weather report right into your inbox now</span>
-      <button
-        class="
-          bg-blue-dark
-          border-transparent
-          shadow
-          rounded-3xl
-          font-bold
-          text-white
-          hover:bg-green-dark
-          items-center
-          ml-10
-          text-3xl
-          py-1
-          px-6
-        "
-      >
-        register
-      </button>
+  </form>
+</div>
+<div class="flex justify-center">
+<p id="time" class="m-2 text-green-dark"></p>
+</div>
+<!-- weather section -->
+<div class="justify-center m-5 flex">
+  <div class="shadow-md bg-white-default m-2 p-2 rounded-lg flex">
+    <p><img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png"></img></p>
+    <div>
+      <p class="font-bold">{{ city_weather.city }}</p>
+      <p>{{ city_weather.temperature| default:"Your search results will appear here" }}  &deg;C</p>
+      <p>{{ city_weather.weather }}</p>
     </div>
-    <!-- weather section -->
-    <div
-      class="
-      flex
-      md:flex-shrink-0
-        shadow-2xl
-        max-w-sm
-        mx-10
-        bg-blue-light
-        rounded-lg
-        items-center
-        justify-center
-        overflow-hidden
-      "
-    >
-      <!-- Today's weather -->
-      <div class="block ">
-        <span class="text-blue-dark font-bold hover:underline ">Ruiru,Kenya</span>
-        <img src="{% static 'img/cloudy.png' %}" alt="cloudy">
-        <span class="text-green-dark font-bold">22&#176c</span>
-        <span class="text-green-dark font-semibold">Partly cloudy</span>
-      </div>
-      <!-- Week forecast -->
-      <div class="block">
-        <span class="text-green-dark font-bold">Monday</span>
-        <img src="{% static 'img/thunder.png' %}" alt="Thunderstorm">
-        <span class="text-green-dark font-semibold">22&#176c</span>
-        <span class="text-green-dark font-semibold">Thunderstorm</span>
-      </div>
-      <div class="block">
-        <span class="text-green-dark font-bold">Tuesday</span>
-        <img src="{% static 'img/windy.png' %}" alt="windy">
-        <span class="text-green-dark font-semibold">23&#176c</span>
-        <span class="text-green-dark font-semibold">windy</span>
-      </div>
-      <div class="block">
-        <span class="text-green-dark font-bold">Wednesday</span>
-        <img src="{% static 'img/sun.png' %}" alt="sunny">
-        <span class="text-green-dark font-semibold">24&#176c</span>
-        <span class="text-green-dark font-semibold">Sunny</span>
-      </div>
-      <div class="block">
-        <span class="text-green-dark font-bold">Thursday</span>
-        <img src="{% static 'img/wind_rainy.png' %}" alt="Rainy">
-        <span class="text-green-dark font-semibold">22&#176c</span>
-        <span class="text-green-dark font-semibold">Rainy</span>
-      </div>
-    </div>
-    <!-- weather description section -->
-      <div class=" flex gap-2 m-12">
-        <span>A mix of clouds and sun. High near 22&#176c.<br>Winds ESE at 10 to 15 km/h</span>
-        <div class="table"><span>hi</span></div>
-      </div>
-  </body>
-</html>
+    
+  </div>
+  <div class="shadow-md bg-white-default m-2 p-2 rounded-lg">
+    <p class="">
+      {{Description| default:"Weather description will be shown here"}}
+    </p>
+  </div>
+</div>
+
+{% endblock content %}

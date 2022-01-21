@@ -1,0 +1,110 @@
+{% load static tailwind_tags %} {% load static %}
+<!DOCTYPE html>
+<html lang="en" class="w-100">
+  <head>
+    <title>Mawingu</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="{% static 'img/clouds-fill.png' %}"
+      type="image/x-icon"
+    />
+    {% tailwind_css %}
+  </head>
+
+  <body class="bg-blue-light font-serif leading-normal tracking-normal h-100">
+    <!-- Navbar area -->
+    <nav class="flex items-center justify-between p-6 shadow-md">
+      <div class="flex items-center flex-shrink-0 text-blue-dark mr-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
+          fill="currentColor"
+          class="bi bi-clouds-fill color-blue-dark"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.473 9a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 14h8.5a2.5 2.5 0 1 0-.027-5z"
+          />
+          <path
+            d="M14.544 9.772a3.506 3.506 0 0 0-2.225-1.676 5.502 5.502 0 0 0-6.337-4.002 4.002 4.002 0 0 1 7.392.91 2.5 2.5 0 0 1 1.17 4.769z"
+          />
+        </svg>
+        <a href="{% url 'main:index' %}">
+          <span class="font-bold text-xl tracking-tight text-green-dark"
+            >MAWINGU</span
+          >
+        </a>
+      </div>
+      <div class="block lg:hidden">
+        <button
+          class="flex items-center px-3 py-2 border rounded text-green-dark border-green-dark hover:text-blue-dark hover:border-blue-dark"
+          onclick="menu()"
+        >
+          <svg
+            class="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile"
+        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto lg:visible hidden"
+      >
+        <div
+          class="font-semibold lg:flex-grow transition duration-500 ease-in-out"
+        >
+          <a
+            href="#contact"
+            class="block mt-4 lg:inline-block lg:mt-0 text-blue-dark hover:text-green-dark mr-4 disable"
+            >contact</a
+          >
+          <a
+            href="#about"
+            class="block mt-4 lg:inline-block lg:mt-0 text-blue-dark hover:text-green-dark mr-4"
+            >about</a
+          >
+          <a
+            href="{% url 'main:docs' %}"
+            class="block mt-4 lg:inline-block lg:mt-0 text-blue-dark hover:text-green-dark mr-4"
+            >docs</a
+          >
+        </div>
+      </div>
+    </nav>
+    {% for message in messages %}
+    <p class="bg-red-default text-white-default p-4 m-2 rounded-lg">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock content %}
+    <footer class="justify-center flex text-sm text-center mt-64">
+      <div>
+        <p>
+          Weather data provided by
+          <a
+            class="text-green-default"
+            href="https://openweathermap.org"
+            target="_blank"
+            >OpenWeatherMap</a
+          >
+        </p>
+        <p>
+          2022&copy; made by
+          <a
+            class="text-green-default"
+            href="https://barryimranapp.herokuapp.com"
+            target="_blank"
+            >Barrylabs</a
+          >
+        </p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>
