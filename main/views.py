@@ -18,9 +18,15 @@ def index(request):
 
             city_weather = {
                 'city': city,
+                'country': r['sys']['country'],
                 'temperature': r['main']['temp'],
                 'weather': r['weather'][0]['description'],
                 'icon': r['weather'][0]["icon"],
+                'feels_like': r['main']['feels_like'],
+                'temp_min': r['main']['temp_min'],
+                'temp_max': r['main']['temp_max'],
+                'wind': r['wind']['speed'],
+                'pressure': r['main']['pressure'],
 
             }
 
@@ -42,16 +48,21 @@ def index(request):
 
     city_weather = {
         'city': city,
+        'country': r['sys']['country'],
         'temperature': r['main']['temp'],
         'weather': r['weather'][0]['description'],
         'icon': r['weather'][0]["icon"],
-
+        'feels_like': r['main']['feels_like'],
+        'temp_min': r['main']['temp_min'],
+        'temp_max': r['main']['temp_max'],
+        'wind': r['wind']['speed'],
+        'pressure': r['main']['pressure'],
     }
 
     context = {
         'city_weather': city_weather,
     }
-    
+
     return render(request, 'main/index.html', context)
 
 

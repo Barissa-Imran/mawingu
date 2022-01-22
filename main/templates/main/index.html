@@ -44,15 +44,24 @@
   <div class="shadow-md bg-white-default m-2 p-2 rounded-lg flex">
     <p><img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png"></img></p>
     <div>
-      <p class="font-bold">{{ city_weather.city }}</p>
-      <p>{{ city_weather.temperature| default:"Your search results will appear here" }}  &deg;C</p>
+      <p class="font-bold">{{ city_weather.city }}, {{city_weather.country}}</p>
+      <p>{{ city_weather.temperature| default:"Your search results will appear here" }}&deg;C</p>
       <p>{{ city_weather.weather }}</p>
     </div>
     
   </div>
   <div class="shadow-md bg-white-default m-2 p-2 rounded-lg">
     <p class="">
-      {{Description| default:"Weather description will be shown here"}}
+      Feels like: {{city_weather.feels_like| default:"Weather description will be shown here"}}&deg;C
+    </p>
+    <p class="">
+      Max: {{city_weather.temp_max| default:"Weather description will be shown here"}}&deg;C
+    </p>
+    <p class="">
+      Min: {{city_weather.temp_min| default:"Weather description will be shown here"}}&deg;C
+    </p>
+    <p class="">
+      wind: {{city_weather.wind| default:"Weather description will be shown here"}} Km/hr
     </p>
   </div>
 </div>
